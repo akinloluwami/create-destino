@@ -83,7 +83,7 @@ const createPackageJson = (config: ProjectConfig): void => {
     },
     dependencies: {
       express: "^4.17.1",
-      @destiny-js/core: "^1.0.0",
+      "@destiny-js/core": "^1.0.0",
     },
     devDependencies: {
       nodemon: "^2.0.7",

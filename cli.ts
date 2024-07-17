@@ -83,7 +83,7 @@ const createPackageJson = (config: ProjectConfig): void => {
     },
     dependencies: {
       express: "^4.17.1",
-      destinyjs: "^1.0.0",
+      @destiny-js/core: "^1.0.0",
     },
     devDependencies: {
       nodemon: "^2.0.7",
@@ -148,7 +148,7 @@ const createDestinyConfig = (config: ProjectConfig): void => {
 
   let configContent;
   if (config.language === "TypeScript") {
-    configContent = `import { Config } from "destinyjs";
+    configContent = `import { Config } from "@destiny-js/core";
 
 const config: Config = ${JSON.stringify(finalConfig, null, 2)};
 
@@ -221,12 +221,12 @@ const createProject = (config: ProjectConfig): void => {
 
   const indexFileContent =
     config.language === "TypeScript"
-      ? `import { createServer } from "destinyjs";
+      ? `import { createServer } from "@destiny-js/core";
 
 createServer();
 
 `
-      : `const { createServer } = require("destinyjs");
+      : `const { createServer } = require("@destiny-js/core");
 
 createServer();
 

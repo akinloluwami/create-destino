@@ -1,13 +1,14 @@
 {
-  "name": "destiny-cli",
+  "name": "create-destino",
   "version": "1.0.0",
-  "description": "CLI for bootstrapping DestinyJS projects",
+  "description": "CLI for bootstrapping DestinoJS projects",
   "main": "dist/cli.js",
   "bin": {
-    "destiny": "dist/cli.js"
+    "create-destino": "dist/cli.js"
   },
   "scripts": {
-    "start": "ts-node cli.ts"
+    "start": "ts-node cli.ts",
+    "pub": "tsc && npm version patch && npm publish"
   },
   "dependencies": {
     "@inquirer/prompts": "^5.1.3",

@@ -53,11 +53,20 @@ export const promptUser = async (
       message: "Enter port number:",
       default: 3344,
     });
-    config.enableJsonParser = await confirm({ message: "Enable JSON parser?" });
+    config.enableJsonParser = await confirm({
+      message: "Enable JSON parser?",
+      default: true,
+    });
     config.enableUrlencoded = await confirm({
       message: "Enable URL encoding?",
+      default: true,
     });
-    if (await confirm({ message: "Do you want to serve static files?" })) {
+    if (
+      await confirm({
+        message: "Do you want to serve static files?",
+        default: false,
+      })
+    ) {
       const folder = await input({ message: "Static files folder:" });
       const route = await input({
         message: "Static files route (leave empty for root):",
@@ -65,7 +74,10 @@ export const promptUser = async (
       });
       config.serveStatic = [{ folder, route }];
     }
-    config.enableRateLimit = await confirm({ message: "Enable rate limits?" });
+    config.enableRateLimit = await confirm({
+      message: "Enable rate limits?",
+      default: false,
+    });
   }
 
   return config;

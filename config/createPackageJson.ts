@@ -2,12 +2,22 @@ import * as fs from "fs";
 import * as path from "path";
 import { execSync } from "child_process";
 import { ProjectConfig } from "../types";
+import { createSpinner } from "nanospinner";
 
 export const createPackageJson = async (
   config: ProjectConfig
 ): Promise<void> => {
-  const latestVersion = (pkg: string) =>
-    execSync(`npm show ${pkg} version`).toString().trim();
+  const latestVersion = (pkg: string) => {
+    const spinner = createSpinner(`Fetching ${pkg} version`).start();
+    try {
+      const version = execSync(`npm show ${pkg} version`).toString().trim();
+      spinner.success({ text: `Fetched ${pkg} version: ${version}` });
+      return version;
+    } catch (error) {
+      spinner.error({ text: `Failed to fetch ${pkg} version` });
+      throw error;
+    }
+  };
 
   const packageJson = {
     name: config.name,

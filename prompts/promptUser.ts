@@ -1,5 +1,5 @@
 import { input, select, confirm, number } from "@inquirer/prompts";
-import * as color from "ansi-colors";
+import color from "ansi-colors";
 import { ProjectConfig } from "../types";
 
 export const promptUser = async (

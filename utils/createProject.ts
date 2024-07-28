@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import * as color from "ansi-colors";
+import color from "ansi-colors";
 import { execSync } from "child_process";
 import { createPackageJson } from "../config/createPackageJson";
 import { createTsConfig } from "../config/createTsConfig";
@@ -8,7 +8,6 @@ import { createDestinoConfig } from "../config/createDestinoConfig";
 import { createExampleRoutes } from "../files/createExampleRoutes";
 import { createGitIgnore } from "../files/createGitIgnore";
 import { ProjectConfig } from "../types";
-import { execCommand } from "./execCommand";
 import { confirm } from "@inquirer/prompts";
 
 export const createProject = async (config: ProjectConfig): Promise<void> => {
@@ -61,6 +60,26 @@ createServer();
         : "pnpm install";
     execSync(`cd ${config.name} && ${installCommand}`, { stdio: "inherit" });
     console.log(color.green("Dependencies installed successfully."));
+
+    const startServer = await confirm({
+      message: "Do you want to start the dev server now?",
+    });
+
+    if (startServer) {
+      const startCommand =
+        config.packageManager === "npm"
+          ? "npm run dev"
+          : config.packageManager === "yarn"
+          ? "yarn dev"
+          : "pnpm dev";
+      execSync(`cd ${config.name} && ${startCommand}`, { stdio: "inherit" });
+    } else {
+      console.log(
+        color.yellow(
+          `Sure, you can always start the dev server later by running '${config.packageManager} run dev'.`
+        )
+      );
+    }
   } else {
     console.log(
       color.yellow(
